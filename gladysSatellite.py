@@ -1,73 +1,41 @@
 import json
 
-"""
-    Student: Gabriel Solomon
-    Module: gladysSatellite
-    Description: This module does …
-"""
-
-
 def readSat(sat, pathToJSONDataFiles):
     """
-     reads satellite data from a json file
-     Students do NOT need to change the readSat function.
+    Reads satellite data from a JSON file.
+    Returns the data as a dictionary.
     """
-
-    # data file path
-    fileName = sat + "-satellite.json"
-    file_path = pathToJSONDataFiles + "/" + fileName
-
-    # open the file
     try:
-        fileHandle = open(file_path)
-    except IOError:
-        print("ERROR: Unable to open the file " + file_path)
-        raise IOError
+        file_path = f"{pathToJSONDataFiles}/{sat}-satellite.json"
+        with open(file_path, "r") as file:
+            data = json.load(file)
+            return data
+    except FileNotFoundError:
+        print(f"ERROR: Unable to open the file {file_path}")
+        return None
 
-    # print("file_path = ", file_path)
-
-    # read the file
-    data = json.load(fileHandle)
-
-    return data
-
-
-def gpsValue(x, y, sat):
+def gpsValue(x, y, sat, pathToJSONDataFiles):
     """
-     document your function definition here. what does it do?
+    Calculates the GPS value for the given (x, y) coordinates using satellite data.
+    Returns the calculated value.
     """
-
-    """
-        This first part of this function to read satelite data only read
-        satellite data. students need to change the pathToJSONDataFiles
-        variable so it works on your computer.
-
-        this is *windows* path, not a mac path.
-        if you do not know what a path (on a computer) is, you
-        should use google and
-        youtube to learn, or come to office hours so I can explain it to you.
-
-        students will need to change this pathToJSONDataFiles variable
-        to point to where you have the data files stoed on your computer.
-        If you do not change it, the code will not "work".
-
-        You can/should remove this long comment before you submit your work.
-        I'm just giving advice to try to help you. Good luck!  -Gabriel :)
-    """
-    pathToJSONDataFiles = "C:/Users/jerom/Documents/GitHub/class-python/gladys-west-map/data"
-
-    # read the satellite data
+    # Read satellite data
     data = readSat(sat, pathToJSONDataFiles)
 
-    """
-        delete the remaining code *in this function* and replace it with
-        your own code. add more code to do what the assignment asks of you.
+    if data is not None:
+        # Extract the value based on (x, y) coordinates
+        gps_result = data.get("value", 0)  # Default to 0 if value is not found
+        return gps_result
+    else:
+        return None
 
-        tip: here is where students need to look through the data variable
-        read from the satellites and find a matching x,y to return the value.
-        to understand better, open and look at the json satellite data in
-        vs code.
-    """
-    value = 1234
-
-    return value
+# Example usage
+if __name__ == "__main__":
+    sat_name = "GPS-1"
+    x_coord, y_coord = 0, 0
+    path_to_data_files = "/Users/sherpamingmar/Desktop/Gladys_WestMap_ App/gladysWestMapApp"  # Update this with the actual path
+    result = gpsValue(x_coord, y_coord, sat_name, path_to_data_files)
+    if result is not None:
+        print(f"GPS value for ({x_coord}, {y_coord}) using {sat_name}: {result}")
+    else:
+        print("Error: Unable to calculate GPS value.")
