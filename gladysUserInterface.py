@@ -61,7 +61,7 @@ def runApp(user_name):
 
         if user_input == 'q':
             user_quit = True
-            print("Thank You!")
+            print("Thank You! {user_login} visiting Gladys West Map App")
         elif user_input == 't':
             runTests()
         elif user_input == 'c':
