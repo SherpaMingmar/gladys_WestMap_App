@@ -47,7 +47,7 @@ def login():
     Asks the user for a login (email address) and password, and validates them.
     Returns the user login (email address) to the gladysUserInterface module if successful.
     """
-    max_attempts = 3
+    max_attempts = 5
     attempts = 0
 
     while attempts < max_attempts:
