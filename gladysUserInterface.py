@@ -87,7 +87,7 @@ def runApp(user_name):
                 continue
             else:
                 distance = calculate_distance(current_position, destination_position)
-                print(f"Distance between {current_position} and {destination_position} is : {distance}")
+                print(f"Distance between current_position and destination_position is : {distance}")
         else:
             print(f"ERROR: {user_input} is not a valid command")
 
